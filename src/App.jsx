@@ -6,6 +6,13 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 
 function App() {
+  document.ondragstart = () => false;
+  document.oncontextmenu = () => false;
+  document.onselectstart = () => false;
+  document.onmousedown = () => false;
+  document.onkeydown = () => false;
+  document.onkeyup = () => false;
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />
