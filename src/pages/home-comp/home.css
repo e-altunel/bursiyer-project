@@ -1,0 +1,48 @@
+.home-container {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-template-rows: 2fr 30fr 1fr;
+  grid-template-areas:
+    "navbar navbar"
+    "sidebar map"
+    "footer footer";
+  height: 100%;
+  width: 100%;
+}
+
+.container-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.navbar-grid {
+  grid-area: navbar;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.sidebar-grid {
+  grid-area: sidebar;
+  background-color: red;
+}
+
+.map-grid {
+  grid-area: map;
+}
+
+.footer-grid {
+  grid-area: footer;
+  background-color: #f8f9fa;
+}
+
+.map-container {
+  height: 100%;
+  width: 100%;
+}

@@ -1,5 +1,24 @@
 {
-  "home":{
-    "title":"Ana Sayfa"
+  "pages": {
+    "home": {
+      "title": "Ana Sayfa"
+    },
+    "register": {
+      "title": "Kayıt Ol",
+      "subtitle": "Hesabınız var mı? ",
+      "login_link": "Giriş Yap",
+      "email": "E-posta",
+      "password": "Şifre",
+      "password_confirmation": "Şifre Tekrarı",
+      "submit": "Kayıt Ol"
+    },
+    "login": {
+      "title": "Giriş Yap",
+      "subtitle": "Hesabınız yok mu? ",
+      "register_link": "Kayıt Ol",
+      "email": "E-posta",
+      "password": "Şifre",
+      "submit": "Giriş Yap"
+    }
   }
 }

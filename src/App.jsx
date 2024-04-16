@@ -1,14 +1,16 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
 
 function App() {
-  const [t,] = useTranslation("global");
-
   return (
     <Routes>
-      <Route path="/" element={<h1>{t("home.title")}</h1>} />
-      <Route path="/about" element={<h1>About</h1>} />
+      <Route path="/" element={<Home />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
     </Routes>
   );
 }
