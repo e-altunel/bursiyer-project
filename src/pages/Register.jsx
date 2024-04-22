@@ -1,11 +1,19 @@
 import { UserAuth } from "../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom/dist";
+import { useEffect } from "react";
 
 export default function Register() {
   const { register } = UserAuth();
   const navigate = useNavigate();
   const [t] = useTranslation("global");
+  const { user } = UserAuth();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   const handleRegister = async (e) => {
     e.preventDefault();

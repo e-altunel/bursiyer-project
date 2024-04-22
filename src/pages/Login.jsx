@@ -1,11 +1,19 @@
 import { UserAuth } from "../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom/dist";
+import { useEffect } from "react";
 
 export default function Login() {
-  const { login } = UserAuth();
   const navigate = useNavigate();
+  const { user } = UserAuth();
+  const { login } = UserAuth();
   const [t] = useTranslation("global");
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();

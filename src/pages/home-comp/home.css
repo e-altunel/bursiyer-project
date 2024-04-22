@@ -1,11 +1,10 @@
 .home-container {
   display: grid;
   grid-template-columns: 2fr 3fr;
-  grid-template-rows: 2fr 30fr 1fr;
+  grid-template-rows: 1fr 15fr;
   grid-template-areas:
     "navbar navbar"
-    "sidebar map"
-    "footer footer";
+    "sidebar map";
   height: 100%;
   width: 100%;
 }
@@ -37,12 +36,20 @@
   grid-area: map;
 }
 
-.footer-grid {
-  grid-area: footer;
-  background-color: #f8f9fa;
-}
-
 .map-container {
   height: 100%;
   width: 100%;
+}
+
+.navbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  height: 100%;
+  width: 100%;
+}
+
+.navbar-group {
+  margin-right: 1rem;
+  margin-left: auto;
 }
