@@ -10,6 +10,7 @@
     "@reduxjs/toolkit": "^2.2.3",
     "bootstrap": "5.3.3",
     "firebase": "^10.11.0",
+    "firebase-tools": "^13.7.3",
     "i18next": "^23.11.2",
     "leaflet": "^1.9.4",
     "react": "^18.2.0",
