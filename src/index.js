@@ -3,6 +3,9 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 
+import { Provider } from "react-redux";
+import { store } from "./store";
+
 import { AuthProvider } from "./context/AuthContext";
 
 import i18next from "i18next";
@@ -24,12 +27,14 @@ i18next.init({
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AuthProvider>
-      <I18nextProvider i18n={i18next}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </I18nextProvider>
-    </AuthProvider>
+    <Provider store={store}>
+      <AuthProvider>
+        <I18nextProvider i18n={i18next}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </I18nextProvider>
+      </AuthProvider>
+    </Provider>
   </React.StrictMode>
 );
