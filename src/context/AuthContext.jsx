@@ -24,14 +24,11 @@ export const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+  useEffect(() =>
+    onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-    });
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+    })
+  );
 
   return (
     <AuthContext.Provider
