@@ -29,7 +29,6 @@
 
 .sidebar-grid {
   grid-area: sidebar;
-  background-color: red;
 }
 
 .map-grid {
@@ -52,4 +51,8 @@
 .navbar-group {
   margin-right: 1rem;
   margin-left: auto;
+}
+
+.tab-panel {
+  height: 100%;
 }

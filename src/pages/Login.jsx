@@ -20,7 +20,7 @@ export default function Login() {
     const email = e.target[0].value;
     const password = e.target[1].value;
     try {
-      await login(email, password).then((userCredential) => {
+      await login(email, password).then((_) => {
         navigate("/");
       });
     } catch (error) {
