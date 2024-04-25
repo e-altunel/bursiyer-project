@@ -18,6 +18,7 @@ export default function MapPage() {
   const neighbourhoods = useSelector(
     (state) => state.neighbourhoods.neighbourhoods
   );
+  const zoom = localStorage.getItem("zoom") ? localStorage.getItem("zoom") : 12;
 
   const dispatch = useDispatch();
 
@@ -32,6 +33,7 @@ export default function MapPage() {
   useEffect(() => {
     onSnapshot(doc(db, "settings", "map_settings"), (snapshot) => {
       const map_settings = snapshot.data();
+      if (!map_settings) return;
       setCenter([map_settings.center._lat, map_settings.center._long]);
       setBounds([
         [map_settings.max_bounds[0]._lat, map_settings.max_bounds[0]._long],
@@ -45,7 +47,9 @@ export default function MapPage() {
       className="map-container"
       maxBounds={bounds}
       center={center}
-      zoom={13}
+      zoom={zoom}
+      maxZoom={16}
+      minZoom={11}
     >
       <TileLayer
         attribution='&copy <a href="https://www.openstreetmap.org/copyright"> OpenStreetMap </a>'
@@ -64,14 +68,31 @@ export default function MapPage() {
             }}
           />
         ))}
-      <ChangeView center={center} zoom={13} bounds={bounds} />
+      <ChangeView center={center} bounds={bounds} />
+      <SaveView />
+      <DrawPolygon />
     </MapContainer>
   );
 }
 
-const ChangeView = ({ center, zoom, bounds }) => {
+const ChangeView = ({ center, bounds }) => {
   const map = useMap();
-  map.setView(center, zoom);
-  map.setMaxBounds(bounds);
+  map.setView(center, map.getZoom(), { animate: false });
+  map.setMaxBounds(bounds, { animate: false });
+  return null;
+};
+
+const SaveView = () => {
+  const map = useMap();
+  useEffect(() => {
+    map.on("moveend", () => {
+      localStorage.setItem("zoom", map.getZoom());
+    });
+  }, [map]);
+  return null;
+};
+
+const DrawPolygon = () => {
+  const map = useMap();
   return null;
 };
