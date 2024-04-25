@@ -8,4 +8,8 @@ export const store = configureStore({
     neighbourhoods: neighbourhoods.reducer,
     selectedNeighbourhood: selectedNeighbourhood.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
