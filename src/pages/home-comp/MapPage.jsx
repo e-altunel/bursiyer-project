@@ -10,7 +10,6 @@ import { setNeighbourhoods } from "../../reducers/neighbourhoods";
 import { setSelectedNeighbourhood } from "../../reducers/selectedNeighbourhood";
 
 export default function MapPage() {
-  const [center, setCenter] = useState([41, 29]);
   const [bounds, setBounds] = useState([
     [40.7, 28.5],
     [41.5, 29.5],
@@ -19,6 +18,12 @@ export default function MapPage() {
     (state) => state.neighbourhoods.neighbourhoods
   );
   const zoom = localStorage.getItem("zoom") ? localStorage.getItem("zoom") : 12;
+  const [center, setCenter] = useState(
+    localStorage.getItem("center")
+      ? JSON.parse(localStorage.getItem("center"))
+      : null
+  );
+  const [gotData, setGotData] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -34,11 +39,19 @@ export default function MapPage() {
     onSnapshot(doc(db, "settings", "map_settings"), (snapshot) => {
       const map_settings = snapshot.data();
       if (!map_settings) return;
-      setCenter([map_settings.center._lat, map_settings.center._long]);
+      if (center === null)
+        setCenter([map_settings.center._lat, map_settings.center._long]);
       setBounds([
-        [map_settings.max_bounds[0]._lat, map_settings.max_bounds[0]._long],
-        [map_settings.max_bounds[1]._lat, map_settings.max_bounds[1]._long],
+        [
+          map_settings.max_bounds[0]._lat + 0.1,
+          map_settings.max_bounds[0]._long - 0.1,
+        ],
+        [
+          map_settings.max_bounds[1]._lat - 0.1,
+          map_settings.max_bounds[1]._long + 0.1,
+        ],
       ]);
+      setGotData(true);
     });
   }, []);
 
@@ -46,7 +59,7 @@ export default function MapPage() {
     <MapContainer
       className="map-container"
       maxBounds={bounds}
-      center={center}
+      center={center ? center : [41.0, 28.9]}
       zoom={zoom}
       maxZoom={16}
       minZoom={11}
@@ -68,15 +81,16 @@ export default function MapPage() {
             }}
           />
         ))}
-      <ChangeView center={center} bounds={bounds} />
+      <ChangeView center={center} bounds={bounds} gotData={gotData} />
       <SaveView />
       <DrawPolygon />
     </MapContainer>
   );
 }
 
-const ChangeView = ({ center, bounds }) => {
+const ChangeView = ({ center, bounds, gotData }) => {
   const map = useMap();
+  if (!gotData) return null;
   map.setView(center, map.getZoom(), { animate: false });
   map.setMaxBounds(bounds, { animate: false });
   return null;
@@ -87,12 +101,12 @@ const SaveView = () => {
   useEffect(() => {
     map.on("moveend", () => {
       localStorage.setItem("zoom", map.getZoom());
+      localStorage.setItem("center", JSON.stringify(map.getCenter()));
     });
   }, [map]);
   return null;
 };
 
 const DrawPolygon = () => {
-  const map = useMap();
   return null;
 };
