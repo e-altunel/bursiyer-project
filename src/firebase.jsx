@@ -1,6 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore, enableIndexedDbPersistence } from "firebase/firestore";
+import {
+  persistentLocalCache,
+  persistentMultipleTabManager,
+  initializeFirestore,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -16,8 +20,8 @@ const app = initializeApp(firebaseConfig);
 
 export default app;
 export const auth = getAuth(app);
-export const db = getFirestore(app);
-
-enableIndexedDbPersistence(db).catch((err) => {
-  console.error(err);
+export const db = initializeFirestore(app, {
+  localCache: persistentLocalCache({
+    tabManager: persistentMultipleTabManager(),
+  }),
 });
