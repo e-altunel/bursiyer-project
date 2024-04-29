@@ -13,6 +13,10 @@ import { I18nextProvider } from "react-i18next";
 import global_tr from "./translations/tr/global.json";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 
 i18next.init({
   interpolation: { escapeValue: false },
