@@ -19,6 +19,7 @@ export default function Sidebar() {
   const handleChange = (_, newValue) => {
     setValue(newValue);
   };
+  const isAdmin = useSelector((state) => state.uiSett.isAdmin);
 
   return (
     <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -38,7 +39,7 @@ export default function Sidebar() {
       <CustomTabPanel value={value} index={0}></CustomTabPanel>
       <Tab1 value={value} index={1} />
       <CustomTabPanel value={value} index={2}>
-        Item Three
+        {isAdmin ? "Admin" : "Not Admin"}
       </CustomTabPanel>
     </Box>
   );
