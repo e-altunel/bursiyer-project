@@ -1,8 +1,10 @@
 #root {
   --light-bg: #f5f5f5;
+  --light-text: #333;
 
 
   --dark-bg: #22293d;
+  --dark-text: #fff;
 }
 
 .fixed-size {

@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 export default function CustomTabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, className, ...other } = props;
 
   return (
     <div
@@ -8,9 +8,12 @@ export default function CustomTabPanel(props) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
+      className={
+        className ? className + " tab-panel scroll-y" : " tab-panel scroll-y"
+      }
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <>{children}</>}
     </div>
   );
 }

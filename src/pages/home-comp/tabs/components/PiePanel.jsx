@@ -1,6 +1,7 @@
 import DataPanelElement from "./DataPanelElement";
 import { Pie } from "react-chartjs-2";
 import "chart.js/auto";
+import { light_colorArray } from "./ChartColors";
 
 export default function PiePanel(props) {
   const { size, style, series, ...other } = props;
@@ -9,7 +10,11 @@ export default function PiePanel(props) {
     <DataPanelElement
       sizeX={size ? size : 1}
       sizeY={size ? size : 1}
-      style={style}
+      style={{
+        ...style,
+        justifyContent: "space-around",
+        display: "flex",
+      }}
       {...other}
     >
       <h1
@@ -17,10 +22,10 @@ export default function PiePanel(props) {
           gridRow: "1",
           gridColumn: "1",
           textAlign: "center",
-          fontSize: "1.2em",
+          fontSize: (size * 1.1).toString() + "rem",
         }}
       >
-        Title
+        Uzun yazi denemesi yapıyorum
       </h1>
       <Pie
         className="fixed-size"
@@ -29,8 +34,16 @@ export default function PiePanel(props) {
           datasets: [
             {
               data: series[0].data.map((s) => s.value),
+              backgroundColor: light_colorArray,
             },
           ],
+        }}
+        options={{
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
         }}
       />
     </DataPanelElement>
