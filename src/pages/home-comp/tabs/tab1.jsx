@@ -32,6 +32,44 @@ export function Tab1(props) {
               },
             ]}
           />
+          <PiePanel
+            size={1}
+            series={[
+              {
+                data: [
+                  {
+                    id: 0,
+                    value: selectedNeighbourhood["KADIN_YUZD"],
+                    label: "Kadın Yüzdesi",
+                  },
+                  {
+                    id: 1,
+                    value: selectedNeighbourhood["ERKEK_YUZD"],
+                    label: "Erkek Yüzdesi",
+                  },
+                ],
+              },
+            ]}
+          />
+          <PiePanel
+            size={1}
+            series={[
+              {
+                data: [
+                  {
+                    id: 0,
+                    value: selectedNeighbourhood["KADIN_YUZD"],
+                    label: "Kadın Yüzdesi",
+                  },
+                  {
+                    id: 1,
+                    value: selectedNeighbourhood["ERKEK_YUZD"],
+                    label: "Erkek Yüzdesi",
+                  },
+                ],
+              },
+            ]}
+          />
         </DataPanelGroup>
       )}
     </CustomTabPanel>

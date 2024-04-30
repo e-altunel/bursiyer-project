@@ -1,31 +1,36 @@
 import DataPanelElement from "./DataPanelElement";
-import { PieChart } from "@mui/x-charts/PieChart";
+import { Pie } from "react-chartjs-2";
+import "chart.js/auto";
 
 export default function PiePanel(props) {
   const { size, style, series, ...other } = props;
-
-  console.log(size ? size * 100 : 200);
 
   return (
     <DataPanelElement
       sizeX={size ? size : 1}
       sizeY={size ? size : 1}
-      style={{ backgroundColor: "green", ...style }}
+      style={style}
       {...other}
     >
-      <PieChart
-        series={series}
-        slotProps={{
-          legend: {
-            hidden: true,
-          },
-        }}
+      <h1
         style={{
-          justifyContent: "center",
-          alignItems: "center",
-          margin: "auto",
-          height: "100%",
-          width: "100%",
+          gridRow: "1",
+          gridColumn: "1",
+          textAlign: "center",
+          fontSize: "1.2em",
+        }}
+      >
+        Title
+      </h1>
+      <Pie
+        className="fixed-size"
+        data={{
+          labels: series[0].data.map((s) => s.label),
+          datasets: [
+            {
+              data: series[0].data.map((s) => s.value),
+            },
+          ],
         }}
       />
     </DataPanelElement>
