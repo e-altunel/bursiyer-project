@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 export default function CustomTabPanel(props) {
   const { children, value, index, className, ...other } = props;
 

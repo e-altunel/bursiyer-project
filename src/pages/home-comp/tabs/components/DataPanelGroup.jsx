@@ -1,6 +1,5 @@
 export default function DataPanelGroup(props) {
   const { children, gridY, style, ...other } = props;
-  const height = (gridY * 17).toString().concat("vw");
 
   const max_space = 3 * gridY;
   var remaining_space = max_space;

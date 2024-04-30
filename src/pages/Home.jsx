@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom/dist";
 import { UserAuth } from "../context/AuthContext";
 import MapPage from "./home-comp/MapPage";
 import "./home-comp/home.css";
-import Navbar from "./home-comp/Navbar";
 import Sidebar from "./home-comp/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { doc, onSnapshot } from "firebase/firestore";
