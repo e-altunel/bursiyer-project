@@ -53,7 +53,7 @@ export default function MapPage() {
       ]);
       setGotData(true);
     });
-  }, []);
+  }, [center]);
 
   return (
     <MapContainer

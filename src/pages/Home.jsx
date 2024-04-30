@@ -5,7 +5,7 @@ import MapPage from "./home-comp/MapPage";
 import "./home-comp/home.css";
 import Navbar from "./home-comp/Navbar";
 import Sidebar from "./home-comp/Sidebar";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 import { setAdmin } from "../reducers/uiSett";
@@ -31,10 +31,16 @@ export default function Home() {
       }
     });
     return () => unsubscribe();
-  }, []);
+  }, [dispatch, user]);
+
+  const darkMode = useSelector((state) => state.uiSett.darkMode);
 
   return (
-    <div className="home-container">
+    <div
+      className={`home-container ${
+        darkMode ? "dark" : "light"
+      }-simple-background`}
+    >
       <div className="navbar-grid container-flex">
         <Navbar />
       </div>
