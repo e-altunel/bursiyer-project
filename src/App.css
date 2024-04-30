@@ -6,6 +6,29 @@ body {
   box-sizing: border-box;
 }
 
+.App {
+  text-align: center;
+  display: grid;
+  grid-template-rows: 1fr 15fr;
+  grid-template-areas:
+    "navbar"
+    "main";
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-grid {
+  position: relative;
+}
+
+.full-box {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+}
+
 .text {
   font-family: sans-serif;
 }

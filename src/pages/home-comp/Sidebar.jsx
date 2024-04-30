@@ -27,6 +27,7 @@ export default function Sidebar() {
         value={value}
         onChange={handleChange}
         aria-label="basic tabs example"
+        variant="fullWidth"
       >
         <Tab label="Item One" {...a11yProps(0)} />
         {selectedNeighbourhood ? (

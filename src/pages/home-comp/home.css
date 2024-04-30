@@ -3,12 +3,8 @@
 .home-container {
   display: grid;
   grid-template-columns: 2fr 3fr;
-  grid-template-rows: 1fr 15fr;
   grid-template-areas:
-    "navbar navbar"
     "sidebar map";
-  height: 100%;
-  width: 100%;
 }
 
 .container-flex {
@@ -21,11 +17,6 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-}
-
-.navbar-grid {
-  grid-area: navbar;
-  border-bottom: 1px solid #e9ecef;
 }
 
 .sidebar-grid {

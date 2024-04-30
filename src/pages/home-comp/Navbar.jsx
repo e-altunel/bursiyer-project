@@ -1,10 +1,11 @@
 import { Box } from "@mui/material";
-import { ButtonGroup, Button } from "react-bootstrap";
+import { ButtonGroup } from "react-bootstrap";
 import { UserAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setDarkMode } from "../../reducers/uiSett";
 import { Image } from "react-bootstrap";
+import CButton from "../custom-comp/CButton";
 
 export default function Navbar() {
   const { logout } = UserAuth();
@@ -27,14 +28,12 @@ export default function Navbar() {
 
   return (
     <Box
-      className={`navbar-custom ${
-        darkMode ? "dark" : "light"
-      }-simple-background`}
+      className="navbar-custom"
+      style={{
+        backgroundColor: darkMode ? "var(--dark-bg)" : "var(--light-bg)",
+      }}
     >
-      <Button
-        variant={darkMode ? "outline-light" : "outline-dark"}
-        onClick={() => dispatch(setDarkMode(!darkMode))}
-      >
+      <CButton onClick={() => dispatch(setDarkMode(!darkMode))}>
         {darkMode ? (
           <Image
             src="https://cdn-icons-png.freepik.com/512/439/439842.png"
@@ -50,20 +49,10 @@ export default function Navbar() {
             height="20"
           />
         )}
-      </Button>
+      </CButton>
       <ButtonGroup>
-        <Button
-          variant={darkMode ? "outline-light" : "outline-dark"}
-          onClick={handleProfile}
-        >
-          Profile
-        </Button>
-        <Button
-          variant={darkMode ? "outline-light" : "outline-dark"}
-          onClick={handleLogout}
-        >
-          Logout
-        </Button>
+        <CButton onClick={handleProfile}>Profile</CButton>
+        <CButton onClick={handleLogout}>Logout</CButton>
       </ButtonGroup>
     </Box>
   );

@@ -1,9 +1,8 @@
-.dark-simple-background {
-  background-color: #000;
-}
+#root {
+  --light-bg: #f5f5f5;
 
-.light-simple-background {
-  background-color: #fff;
+
+  --dark-bg: #22293d;
 }
 
 .fixed-size {

@@ -37,13 +37,11 @@ export default function Home() {
 
   return (
     <div
-      className={`home-container ${
-        darkMode ? "dark" : "light"
-      }-simple-background`}
+      className={"home-container full-box"}
+      style={{
+        backgroundColor: darkMode ? "var(--dark-bg)" : "var(--light-bg)",
+      }}
     >
-      <div className="navbar-grid container-flex">
-        <Navbar />
-      </div>
       <div className="sidebar-grid container-flex">
         <Sidebar />
       </div>
