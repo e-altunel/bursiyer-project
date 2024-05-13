@@ -71,6 +71,13 @@
 
 }
 
+.data-panel-element h3 {
+  grid-row: 1;
+  grid-column: 1;
+  text-align: center;
+}
+
 .tab-panel {
   height: 95%;
 }
+
