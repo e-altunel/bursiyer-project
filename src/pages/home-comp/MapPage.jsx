@@ -11,8 +11,8 @@ import { setSelectedNeighbourhood } from "../../reducers/selectedNeighbourhood";
 
 export default function MapPage() {
   const [bounds, setBounds] = useState([
-    [40.7, 28.5],
-    [41.5, 29.5],
+    [40.0, 28.0],
+    [42.0, 30.0],
   ]);
   const neighbourhoods = useSelector(
     (state) => state.neighbourhoods.neighbourhoods
