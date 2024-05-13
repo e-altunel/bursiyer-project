@@ -1,10 +1,12 @@
 import DataPanelElement from "./DataPanelElement";
 import { Pie } from "react-chartjs-2";
 import "chart.js/auto";
-import { light_colorArray } from "./ChartColors";
+import { light_colorArray, dark_colorArray } from "./ChartColors";
+import { useSelector } from "react-redux";
 
 export default function PiePanel(props) {
   const { size, style, series, ...other } = props;
+  const darkMode = useSelector((state) => state.uiSett.darkMode);
 
   return (
     <DataPanelElement
@@ -18,10 +20,9 @@ export default function PiePanel(props) {
       {...other}
     >
       <h1
+        className="data-panel-title"
         style={{
-          gridRow: "1",
-          gridColumn: "1",
-          textAlign: "center",
+          color: darkMode ? "var(--dark-text)" : "var(--light-text)",
           fontSize: (size * 1.1).toString() + "rem",
         }}
       >
@@ -34,7 +35,7 @@ export default function PiePanel(props) {
           datasets: [
             {
               data: series[0].data.map((s) => s.value),
-              backgroundColor: light_colorArray,
+              backgroundColor: darkMode ? dark_colorArray : light_colorArray,
             },
           ],
         }}
