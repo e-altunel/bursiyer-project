@@ -1,13 +1,16 @@
-import { MapContainer, Polygon, TileLayer } from "react-leaflet";
+import { MapContainer, Polygon, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./home.css";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
-import { onSnapshot, collection, doc } from "firebase/firestore";
+import { onSnapshot, collection, doc, query, where } from "firebase/firestore";
 import { useMap } from "react-leaflet";
 import { useSelector, useDispatch } from "react-redux";
 import { setNeighbourhoods } from "../../reducers/neighbourhoods";
 import { setSelectedNeighbourhood } from "../../reducers/selectedNeighbourhood";
+import { setSelectedMarker } from "../../reducers/selectedMarker";
+import MarkerClusterGroup from "react-leaflet-cluster";
+import L from "leaflet";
 
 export default function MapPage() {
   const [bounds, setBounds] = useState([
@@ -24,6 +27,17 @@ export default function MapPage() {
       : null
   );
   const [gotData, setGotData] = useState(false);
+  const selectedNeighbourhood = useSelector(
+    (state) => state.selectedNeighbourhood.selectedNeighbourhood
+  );
+  const [selectedNeighbourhoodData, setSelectedNeighbourhoodData] =
+    useState(null);
+  const customIcon = L.icon({
+    iconUrl: "https://cdn-icons-png.freepik.com/512/619/619032.png",
+    iconSize: [38, 38],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76],
+  });
 
   const dispatch = useDispatch();
 
@@ -55,13 +69,28 @@ export default function MapPage() {
     });
   }, [center]);
 
+  useEffect(() => {
+    if (!selectedNeighbourhood) return;
+    const q = query(
+      collection(db, "data"),
+      where(
+        "MahalleAdi",
+        "==",
+        capitalizeFirstLetter(selectedNeighbourhood["MAHALLEADI"])
+      )
+    );
+    onSnapshot(q, (snapshot) => {
+      setSelectedNeighbourhoodData(snapshot.docs.map((doc) => doc.data()));
+    });
+  }, [selectedNeighbourhood]);
+
   return (
     <MapContainer
       className="map-container"
       maxBounds={bounds}
       center={center ? center : [41.0, 28.9]}
       zoom={zoom}
-      maxZoom={16}
+      maxZoom={18}
       minZoom={11}
     >
       <TileLayer
@@ -69,18 +98,39 @@ export default function MapPage() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {neighbourhoods &&
-        neighbourhoods.map((n, index) => (
-          <Polygon
-            key={index}
-            pathOptions={{ color: "red" }}
-            positions={n.wkt.map((w) => [w._lat, w._long])}
-            eventHandlers={{
-              click: () => {
-                dispatch(setSelectedNeighbourhood(n));
-              },
-            }}
-          />
-        ))}
+        neighbourhoods
+          .map((n, index) =>
+            selectedNeighbourhood && selectedNeighbourhood === n ? null : (
+              <Polygon
+                key={index}
+                pathOptions={{ color: "red" }}
+                positions={n.wkt.map((w) => [w._lat, w._long])}
+                eventHandlers={{
+                  click: () => {
+                    dispatch(setSelectedNeighbourhood(n));
+                  },
+                }}
+              />
+            )
+          )
+          .filter((n) => n !== null)}
+      {selectedNeighbourhood && (
+        <MarkerClusterGroup chunkedLoading>
+          {selectedNeighbourhoodData &&
+            selectedNeighbourhoodData.map((data, index) => (
+              <Marker
+                key={index}
+                icon={customIcon}
+                position={[data["Enlem"], data["Boylam"]]}
+                eventHandlers={{
+                  click: () => {
+                    dispatch(setSelectedMarker(data));
+                  },
+                }}
+              ></Marker>
+            ))}
+        </MarkerClusterGroup>
+      )}
       <ChangeView center={center} bounds={bounds} gotData={gotData} />
       <SaveView />
       <DrawPolygon />
@@ -110,3 +160,10 @@ const SaveView = () => {
 const DrawPolygon = () => {
   return null;
 };
+
+function capitalizeFirstLetter(string) {
+  return (
+    string.charAt(0).toLocaleUpperCase("tr-TR") +
+    string.slice(1).toLocaleLowerCase("tr-TR")
+  );
+}

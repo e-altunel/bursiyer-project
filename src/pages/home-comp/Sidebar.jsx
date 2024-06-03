@@ -3,6 +3,7 @@ import { Box, Tab, Tabs } from "@mui/material";
 import React from "react";
 import { Tab1 } from "./tabs/tab1";
 import CustomTabPanel from "./tabs/CustomTabPanel";
+import { MarkerTab } from "./tabs/MarkerTab";
 
 function a11yProps(index, darkMode = false) {
   return {
@@ -49,7 +50,7 @@ export default function Sidebar() {
         )}
         <Tab label="Item Three" {...a11yProps(2, darkMode)} />
       </Tabs>
-      <CustomTabPanel value={value} index={0}></CustomTabPanel>
+      <MarkerTab value={value} index={0} />
       <Tab1 value={value} index={1} />
       <CustomTabPanel value={value} index={2}>
         {isAdmin ? "Admin" : "Not Admin"}
