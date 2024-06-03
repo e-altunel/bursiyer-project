@@ -7,10 +7,11 @@ export function MarkerTab(props) {
   const selectedMarker = useSelector(
     (state) => state.selectedMarker.selectedMarker
   );
+  const darkMode = useSelector((state) => state.uiSett.darkMode);
 
   return (
     <CustomTabPanel value={value} index={index} {...other}>
-      <Table striped bordered hover>
+      <Table striped bordered hover variant={darkMode ? "dark" : "light"}>
         <thead>
           <tr>
             <th>#</th>
