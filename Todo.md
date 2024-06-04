@@ -2,6 +2,7 @@
 
 ## STYLE
 
+- [ ] Update Sidebar
 - [ ] Desing Login Page (Importance 3)
 - [ ] Desing Register Page (Importance 3)
 - [ ] Desing Profile Page (Importance 3)

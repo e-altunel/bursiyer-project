@@ -2,7 +2,7 @@
 
 .home-container {
   display: grid;
-  grid-template-columns: 2fr 3fr;
+  grid-template-columns:  auto 1fr;
   grid-template-areas:
     "sidebar map";
 }
@@ -22,6 +22,7 @@
 .sidebar-grid {
   grid-area: sidebar;
   overflow-x: hidden;
+	width: 100%;
 }
 
 .map-grid {
@@ -43,7 +44,6 @@
 }
 
 .tab-panel {
-  height: 100%;
   padding: 10px;
 }
 
@@ -76,8 +76,3 @@
   grid-column: 1;
   text-align: center;
 }
-
-.tab-panel {
-  height: 95%;
-}
-

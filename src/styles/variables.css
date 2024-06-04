@@ -1,9 +1,11 @@
 #root {
   --light-bg: #f5f5f5;
+	--light-bg-2: #e0e0e0;
   --light-text: #333;
 
 
   --dark-bg: #22293d;
+	--dark-bg-2: #1a1f2c;
   --dark-text: #fff;
 }
 

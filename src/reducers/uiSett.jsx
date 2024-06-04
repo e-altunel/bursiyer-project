@@ -5,6 +5,12 @@ export const uiSett = createSlice({
   initialState: {
     admin: false,
     darkMode: false,
+    leftBarOpen: false,
+    left_left_bar_size: 3,
+    left_right_bar_size: 11,
+    sidebar_base_size: 54,
+    sidebar_const_size: 54,
+    navbar_size: 7,
   },
   reducers: {
     setAdmin: (state, action) => {
@@ -13,7 +19,14 @@ export const uiSett = createSlice({
     setDarkMode: (state, action) => {
       state.darkMode = action.payload;
     },
+    setLeftBarOpen: (state, action) => {
+      state.leftBarOpen = action.payload;
+    },
+    setSidebarBaseSize: (state, action) => {
+      state.sidebar_base_size = action.payload;
+    },
   },
 });
 
-export const { setAdmin, setDarkMode } = uiSett.actions;
+export const { setAdmin, setDarkMode, setLeftBarOpen, setSidebarBaseSize } =
+  uiSett.actions;
