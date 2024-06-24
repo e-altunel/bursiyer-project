@@ -1,4 +1,4 @@
-import { MapContainer, Polygon, TileLayer, Marker } from "react-leaflet";
+import { MapContainer, /*Polygon, */ TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./home.css";
 import { useEffect, useState } from "react";
@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setNeighbourhoods } from "../../reducers/neighbourhoods";
 import { setSelectedNeighbourhood } from "../../reducers/selectedNeighbourhood";
 import { setSelectedMarker } from "../../reducers/selectedMarker";
+import { setTitles } from "../../reducers/titles";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import L from "leaflet";
 
@@ -17,9 +18,9 @@ export default function MapPage() {
     [40.0, 28.0],
     [42.0, 30.0],
   ]);
-  const neighbourhoods = useSelector(
-    (state) => state.neighbourhoods.neighbourhoods
-  );
+  //const neighbourhoods = useSelector(
+  //  (state) => state.neighbourhoods.neighbourhoods
+  //);
   const zoom = localStorage.getItem("zoom") ? localStorage.getItem("zoom") : 12;
   const [center, setCenter] = useState(
     localStorage.getItem("center")
@@ -38,12 +39,17 @@ export default function MapPage() {
     iconAnchor: [22, 94],
     popupAnchor: [-3, -76],
   });
+  const selectedMarker = useSelector(
+    (state) => state.selectedMarker.selectedMarker
+  );
+  const titles = useSelector((state) => state.titles.titles);
 
   const dispatch = useDispatch();
+  dispatch(setSelectedNeighbourhood(true));
 
   useEffect(
     () =>
-      onSnapshot(collection(db, "neighborhood"), (snapshot) => {
+      onSnapshot(collection(db, "neighborhoods"), (snapshot) => {
         dispatch(setNeighbourhoods(snapshot.docs.map((doc) => doc.data())));
       }),
     [dispatch]
@@ -72,17 +78,21 @@ export default function MapPage() {
   useEffect(() => {
     if (!selectedNeighbourhood) return;
     const q = query(
-      collection(db, "data"),
-      where(
-        "MahalleAdi",
-        "==",
-        capitalizeFirstLetter(selectedNeighbourhood["MAHALLEADI"])
-      )
+      collection(db, "buildings_list"),
+      where("MAHALLEKOD", "==", 50331) //selectedNeighbourhood["MAHALLEKOD"])
     );
     onSnapshot(q, (snapshot) => {
       setSelectedNeighbourhoodData(snapshot.docs.map((doc) => doc.data()));
     });
   }, [selectedNeighbourhood]);
+
+  useEffect(() => {
+    if (!selectedMarker) return;
+    onSnapshot(collection(db, "columns"), (snapshot) => {
+      dispatch(setTitles(snapshot.docs.map((doc) => doc.data())));
+    });
+    console.log(titles);
+  }, [selectedMarker]);
 
   return (
     <MapContainer
@@ -97,6 +107,7 @@ export default function MapPage() {
         attribution='&copy <a href="https://www.openstreetmap.org/copyright"> OpenStreetMap </a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      {/*
       {neighbourhoods &&
         neighbourhoods
           .map((n, index) =>
@@ -113,22 +124,26 @@ export default function MapPage() {
               />
             )
           )
-          .filter((n) => n !== null)}
+          .filter((n) => n !== null)}*/}
       {selectedNeighbourhood && (
         <MarkerClusterGroup chunkedLoading>
           {selectedNeighbourhoodData &&
-            selectedNeighbourhoodData.map((data, index) => (
-              <Marker
-                key={index}
-                icon={customIcon}
-                position={[data["Enlem"], data["Boylam"]]}
-                eventHandlers={{
-                  click: () => {
-                    dispatch(setSelectedMarker(data));
-                  },
-                }}
-              ></Marker>
-            ))}
+            selectedNeighbourhoodData
+              .map((data, index) =>
+                index < 10 ? (
+                  <Marker
+                    key={index}
+                    icon={customIcon}
+                    position={[data["ENLEM"], data["BOYLAM"]]}
+                    eventHandlers={{
+                      click: () => {
+                        dispatch(setSelectedMarker(data));
+                      },
+                    }}
+                  ></Marker>
+                ) : null
+              )
+              .filter((n) => n !== null)}
         </MarkerClusterGroup>
       )}
       <ChangeView center={center} bounds={bounds} gotData={gotData} />
@@ -160,10 +175,3 @@ const SaveView = () => {
 const DrawPolygon = () => {
   return null;
 };
-
-function capitalizeFirstLetter(string) {
-  return (
-    string.charAt(0).toLocaleUpperCase("tr-TR") +
-    string.slice(1).toLocaleLowerCase("tr-TR")
-  );
-}
