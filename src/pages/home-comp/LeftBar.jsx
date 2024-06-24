@@ -27,6 +27,7 @@ export default function LeftBar() {
         padding: "0",
         margin: "0",
         height: "100%",
+        backgroundColor: darkMode ? "var(--dark-bg-3)" : "var(--light-bg-3)",
       }}
     >
       <div
@@ -55,23 +56,69 @@ export default function LeftBar() {
               marginLeft: "auto",
               marginTop: "auto",
               marginBottom: "auto",
+              borderTopRightRadius: "0",
+              borderBottomRightRadius: "0",
+              borderRight: "none",
               height: "100%",
             }}
           >
             <Image
               src="https://cdn-icons-png.freepik.com/512/439/439842.png"
               alt="sun"
-              width="20"
-              height="20"
+              width="25"
+              height="25"
             />
           </CButton>
+        </div>
+        <br />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "left",
+            height: `calc(100% - ${navbar_size}vh)`,
+            paddingTop: "10px",
+            paddingBottom: "10px",
+            alignItems: "center",
+          }}
+        >
+          {Array.from({ length: 10 }, (_, i) => (
+            <CButton
+              key={i}
+              style={{
+                marginRight: "0px",
+                marginLeft: "auto",
+                marginTop: "0px",
+                marginBottom: "3px",
+                borderTopRightRadius: "0",
+                borderBottomRightRadius: "0",
+                backgroundColor: darkMode
+                  ? "var(--dark-bg)"
+                  : "var(--light-bg)",
+                borderColor: darkMode
+                  ? "var(--light-bg-2)"
+                  : "var(--dark-bg-2)",
+                borderRight: "none",
+              }}
+            >
+              <Image
+                src="https://cdn-icons-png.freepik.com/512/439/439842.png"
+                alt="sun"
+                width={i % 2 === 0 ? "25" : "15"}
+                height={i % 2 === 0 ? "25" : "15"}
+              />
+            </CButton>
+          ))}
         </div>
       </div>
       <div
         style={{
-          backgroundColor: darkMode ? "var(--dark-bg-2)" : "var(--light-bg-2)",
+          backgroundColor: darkMode ? "var(--dark-bg)" : "var(--light-bg)",
           height: "100%",
           width: leftBarOpen ? `${left_right_bar_size}vw` : "0",
+          boxShadow: `inset -10px 0px 10px -4px ${
+            darkMode ? "var(--dark-shadow)" : "var(--light-shadow)"
+          }`,
         }}
       ></div>
     </div>
