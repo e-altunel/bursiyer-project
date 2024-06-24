@@ -8,6 +8,7 @@ export function MarkerTab(props) {
     (state) => state.selectedMarker.selectedMarker
   );
   const darkMode = useSelector((state) => state.uiSett.darkMode);
+  const titles = useSelector((state) => state.titles.titles);
 
   return (
     <CustomTabPanel value={value} index={index} {...other}>
@@ -21,6 +22,7 @@ export function MarkerTab(props) {
         </thead>
         <tbody>
           {selectedMarker &&
+            titles &&
             Object.entries(selectedMarker)
               .sort((a, b) => a[0].localeCompare(b[0]))
               .map((item, index) => {
@@ -28,6 +30,7 @@ export function MarkerTab(props) {
                 const value = item[1];
                 if (typeof value !== "string" && typeof value !== "number")
                   return null;
+                const header_info = get_info_from_key(key, titles);
                 return (
                   <tr key={index}>
                     <td>{index}</td>
@@ -36,7 +39,7 @@ export function MarkerTab(props) {
                         textAlign: "left",
                       }}
                     >
-                      {key}
+                      {header_info.description.tr}
                     </td>
                     <td
                       style={{
@@ -53,4 +56,13 @@ export function MarkerTab(props) {
       </Table>
     </CustomTabPanel>
   );
+}
+
+function get_info_from_key(key, titles) {
+  for (const title of titles) {
+    if (title.name === key) {
+      return title;
+    }
+  }
+  return key;
 }
