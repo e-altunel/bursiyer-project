@@ -24,7 +24,9 @@ export default function Navbar() {
     navigate("/profile");
   };
   const darkMode = useSelector((state) => state.uiSett.darkMode);
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
+  //const navbar_size = useSelector((state) => state.uiSett.navbar.size);
+  //const navbar_padding = useSelector((state) => state.uiSett.navbar.padding);
 
   return (
     <Box
@@ -33,7 +35,13 @@ export default function Navbar() {
         backgroundColor: darkMode ? "var(--dark-bg)" : "var(--light-bg)",
       }}
     >
-      <CButton onClick={() => dispatch(setDarkMode(!darkMode))}>
+      {/* 
+      <CButton
+        style={{
+          width: `${navbar_size - 2 * navbar_padding}vh`,
+        }}
+        onClick={() => dispatch(setDarkMode(!darkMode))}
+      >
         {darkMode ? (
           <Image
             src="https://cdn-icons-png.freepik.com/512/439/439842.png"
@@ -50,6 +58,8 @@ export default function Navbar() {
           />
         )}
       </CButton>
+					*/}
+      <div></div>
       <ButtonGroup>
         <CButton onClick={handleProfile}>Profile</CButton>
         <CButton onClick={handleLogout}>Logout</CButton>
