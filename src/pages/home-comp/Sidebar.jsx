@@ -72,7 +72,7 @@ export default function Sidebar() {
           ) : (
             <Tab label="Mahalle Seçiniz" {...a11yProps(1, darkMode)} disabled />
           )}
-          <Tab label="Item Three" {...a11yProps(2, darkMode)} />
+          {isAdmin && <Tab label="Item Three" {...a11yProps(2, darkMode)} />}
         </Tabs>
         <MarkerTab value={value} index={0} />
         <Tab1 value={value} index={1} />
