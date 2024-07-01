@@ -152,7 +152,7 @@ export default function LeftBar() {
                         marginRight: "0px",
                         marginLeft: "auto",
                         marginTop: "0px",
-                        marginBottom: "3px",
+                        marginBottom: navbar_padding,
                         borderTopRightRadius: "0",
                         borderBottomRightRadius: "0",
                         borderRight: "none",
@@ -180,11 +180,6 @@ export default function LeftBar() {
             ))}
         </div>
       </div>
-      <div
-        style={{
-          height: navbar_size,
-        }}
-      ></div>
       {leftBarOpen && (
         <div
           style={{
@@ -295,7 +290,7 @@ export default function LeftBar() {
                           marginRight: "auto",
                           marginLeft: "0px",
                           marginTop: "0px",
-                          marginBottom: "3px",
+                          marginBottom: navbar_padding,
                           borderTopLeftRadius: "0",
                           borderBottomLeftRadius: "0",
                           borderLeft: "none",
