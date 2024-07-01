@@ -7,6 +7,9 @@ export const titles = createSlice({
     title_group: null,
     selectedTitles: [],
     selectedGroupIndex: [null, null],
+    graphGroup: {
+      neighbourhood: null,
+    },
   },
   reducers: {
     setTitles: (state, action) => {
@@ -21,6 +24,9 @@ export const titles = createSlice({
     setSelectedGroupIndex: (state, action) => {
       state.selectedGroupIndex = action.payload;
     },
+    setGraphGroupNeighbourhood: (state, action) => {
+      state.graphGroup.neighbourhood = action.payload;
+    },
   },
 });
 
@@ -29,4 +35,5 @@ export const {
   setTitleGroup,
   setSelectedTitles,
   setSelectedGroupIndex,
+  setGraphGroupNeighbourhood,
 } = titles.actions;

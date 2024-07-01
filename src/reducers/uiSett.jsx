@@ -16,6 +16,10 @@ export const uiSett = createSlice({
       size: "7vh",
       padding: "1vh",
     },
+    local: {
+      lang: "tr",
+      defaultLang: "tr",
+    },
   },
   reducers: {
     setAdmin: (state, action) => {
@@ -30,8 +34,16 @@ export const uiSett = createSlice({
     setSidebarBaseSize: (state, action) => {
       state.sidebar_base_size = action.payload;
     },
+    setLanguage: (state, action) => {
+      state.local.lang = action.payload;
+    },
   },
 });
 
-export const { setAdmin, setDarkMode, setLeftBarOpen, setSidebarBaseSize } =
-  uiSett.actions;
+export const {
+  setAdmin,
+  setDarkMode,
+  setLeftBarOpen,
+  setSidebarBaseSize,
+  setLanguage,
+} = uiSett.actions;

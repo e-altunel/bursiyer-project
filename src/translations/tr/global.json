@@ -1,7 +1,13 @@
 {
   "pages": {
     "home": {
-      "title": "Ana Sayfa"
+      "title": "Ana Sayfa",
+      "sidebar": {
+        "markerTab": {
+          "key": "Başlık",
+          "value": "Değer"
+        }
+      }
     },
     "register": {
       "title": "Kayıt Ol",

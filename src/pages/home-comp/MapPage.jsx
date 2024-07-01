@@ -7,7 +7,11 @@ import { onSnapshot, collection, doc, query, where } from "firebase/firestore";
 import { useMap } from "react-leaflet";
 import { useSelector, useDispatch } from "react-redux";
 import { setNeighbourhoods } from "../../reducers/neighbourhoods";
-import { setSelectedNeighbourhood } from "../../reducers/selectedNeighbourhood";
+import {
+  setSelectedNeighbourhood,
+  setSelectedNeighbourhoodData,
+  setSelectedNeighbourhoodStats,
+} from "../../reducers/selectedNeighbourhood";
 import { setSelectedMarker } from "../../reducers/selectedMarker";
 import { setTitleGroup, setTitles } from "../../reducers/titles";
 import MarkerClusterGroup from "react-leaflet-cluster";
@@ -31,10 +35,12 @@ export default function MapPage() {
   const selectedNeighbourhood = useSelector(
     (state) => state.selectedNeighbourhood.selectedNeighbourhood
   );
-  const [selectedNeighbourhoodData, setSelectedNeighbourhoodData] =
-    useState(null);
+  const selectedNeighbourhoodData = useSelector(
+    (state) => state.selectedNeighbourhood.selectedNeighbourhoodData
+  );
   const customIcon = L.icon({
-    iconUrl: "https://cdn-icons-png.freepik.com/512/619/619032.png",
+    iconUrl:
+      "https://firebasestorage.googleapis.com/v0/b/bursiyer-project.appspot.com/o/homeIcon.png?alt=media&token=fb2e4ba6-4d70-49b8-9513-12321f968c04",
     iconSize: [38, 38],
     iconAnchor: [22, 94],
     popupAnchor: [-3, -76],
@@ -81,9 +87,14 @@ export default function MapPage() {
       where("MAHALLEKOD", "==", 50331) //selectedNeighbourhood["MAHALLEKOD"])
     );
     onSnapshot(q, (snapshot) => {
-      setSelectedNeighbourhoodData(snapshot.docs.map((doc) => doc.data()));
+      dispatch(
+        setSelectedNeighbourhoodData(snapshot.docs.map((doc) => doc.data()))
+      );
     });
-  }, [selectedNeighbourhood]);
+    onSnapshot(doc(db, "neighborhoods", "50331"), (snapshot) => {
+      dispatch(setSelectedNeighbourhoodStats(snapshot.data()));
+    });
+  }, [selectedNeighbourhood, dispatch]);
 
   useEffect(() => {
     if (!selectedMarker) return;
@@ -92,7 +103,7 @@ export default function MapPage() {
     });
   }, [selectedMarker, dispatch]);
 
-  useEffect(() => {	
+  useEffect(() => {
     if (!selectedMarker) return;
     onSnapshot(collection(db, "titles"), (snapshot) => {
       dispatch(setTitleGroup(snapshot.docs.map((doc) => doc.data())));

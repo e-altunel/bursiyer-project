@@ -5,7 +5,7 @@ import { light_colorArray, dark_colorArray } from "./ChartColors";
 import { useSelector } from "react-redux";
 
 export default function PiePanel(props) {
-  const { size, style, series, ...other } = props;
+  const { size, style, series, name, ...other } = props;
   const darkMode = useSelector((state) => state.uiSett.darkMode);
 
   return (
@@ -26,7 +26,7 @@ export default function PiePanel(props) {
           fontSize: (size * 1.1).toString() + "rem",
         }}
       >
-        Uzun yazi denemesi yapıyorum
+        {name ? name : "Pie Chart"}
       </h1>
       <Pie
         className="fixed-size"

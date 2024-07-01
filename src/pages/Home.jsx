@@ -5,11 +5,12 @@ import MapPage from "./home-comp/MapPage";
 import "./home-comp/home.css";
 import Sidebar from "./home-comp/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot, collection } from "firebase/firestore";
 import { db } from "../firebase";
-import { setAdmin, setSidebarBaseSize } from "../reducers/uiSett";
+import { setAdmin /*setSidebarBaseSize*/ } from "../reducers/uiSett";
 import LeftBar from "./home-comp/LeftBar";
 import { ResizableBox } from "react-resizable";
+import { setGraphGroupNeighbourhood } from "../reducers/titles";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -33,6 +34,16 @@ export default function Home() {
     });
     return () => unsubscribe();
   }, [dispatch, user]);
+
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "neighborhoods_titles"), (snapshot) => {
+        dispatch(
+          setGraphGroupNeighbourhood(snapshot.docs.map((doc) => doc.data()))
+        );
+      }),
+    [dispatch]
+  );
 
   const darkMode = useSelector((state) => state.uiSett.darkMode);
   const sidebar_const_size = useSelector(
