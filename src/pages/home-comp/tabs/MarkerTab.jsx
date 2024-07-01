@@ -1,6 +1,7 @@
 import CustomTabPanel from "./CustomTabPanel";
 import { useSelector } from "react-redux";
-import Table from "react-bootstrap/Table";
+import { Table } from "react-bootstrap";
+import { CheckMark, CrossMark } from "../../../simple-comp/boolean";
 
 export function MarkerTab(props) {
   const { value, index, ...other } = props;
@@ -46,7 +47,7 @@ export function MarkerTab(props) {
                         textAlign: "right",
                       }}
                     >
-                      {value}
+                      {show_value(value, header_info.type)}
                     </td>
                   </tr>
                 );
@@ -65,4 +66,14 @@ function get_info_from_key(key, titles) {
     }
   }
   return key;
+}
+
+function show_value(value, type) {
+  if (type === "BOOLEAN") {
+    return value ? <CheckMark /> : <CrossMark />;
+  }
+  if (type === "REAL") {
+    return value.toFixed(2);
+  }
+  return value;
 }

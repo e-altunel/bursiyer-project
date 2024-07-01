@@ -15,6 +15,7 @@ export default function LeftBar() {
   );
   const navbar_size = useSelector((state) => state.uiSett.navbar_size);
   const darkMode = useSelector((state) => state.uiSett.darkMode);
+  const title_group = useSelector((state) => state.titles.title_group);
 
   return (
     <div
@@ -82,33 +83,67 @@ export default function LeftBar() {
             alignItems: "center",
           }}
         >
-          {Array.from({ length: 10 }, (_, i) => (
-            <CButton
-              key={i}
-              style={{
-                marginRight: "0px",
-                marginLeft: "auto",
-                marginTop: "0px",
-                marginBottom: "3px",
-                borderTopRightRadius: "0",
-                borderBottomRightRadius: "0",
-                backgroundColor: darkMode
-                  ? "var(--dark-bg)"
-                  : "var(--light-bg)",
-                borderColor: darkMode
-                  ? "var(--light-bg-2)"
-                  : "var(--dark-bg-2)",
-                borderRight: "none",
-              }}
-            >
-              <Image
-                src="https://cdn-icons-png.freepik.com/512/439/439842.png"
-                alt="sun"
-                width={i % 2 === 0 ? "25" : "15"}
-                height={i % 2 === 0 ? "25" : "15"}
-              />
-            </CButton>
-          ))}
+          {title_group &&
+            title_group.map((title, i) => {
+              console.log(title);
+              return (
+                <>
+                  <CButton
+                    key={i}
+                    style={{
+                      marginRight: "0px",
+                      marginLeft: "auto",
+                      marginTop: "0px",
+                      marginBottom: "3px",
+                      borderTopRightRadius: "0",
+                      borderBottomRightRadius: "0",
+                      backgroundColor: darkMode
+                        ? "var(--dark-bg)"
+                        : "var(--light-bg)",
+                      borderColor: darkMode
+                        ? "var(--light-bg-2)"
+                        : "var(--dark-bg-2)",
+                      borderRight: "none",
+                    }}
+                  >
+                    <Image
+                      src={title["Icon"]}
+                      alt="sun"
+                      width="25"
+                      height="25"
+                    />
+                  </CButton>
+                  {title["SubTitles"] &&
+                    title["SubTitles"].map((_, j) => (
+                      <CButton
+                        key={i + j}
+                        style={{
+                          marginRight: "0px",
+                          marginLeft: "auto",
+                          marginTop: "0px",
+                          marginBottom: "3px",
+                          borderTopRightRadius: "0",
+                          borderBottomRightRadius: "0",
+                          backgroundColor: darkMode
+                            ? "var(--dark-bg)"
+                            : "var(--light-bg)",
+                          borderColor: darkMode
+                            ? "var(--light-bg-2)"
+                            : "var(--dark-bg-2)",
+                          borderRight: "none",
+                        }}
+                      >
+                        <Image
+                          src="https://cdn-icons-png.freepik.com/512/439/439842.png"
+                          alt="sun"
+                          width="15"
+                          height="15"
+                        />
+                      </CButton>
+                    ))}
+                </>
+              );
+            })}
         </div>
       </div>
       <div

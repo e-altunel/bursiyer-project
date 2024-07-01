@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setNeighbourhoods } from "../../reducers/neighbourhoods";
 import { setSelectedNeighbourhood } from "../../reducers/selectedNeighbourhood";
 import { setSelectedMarker } from "../../reducers/selectedMarker";
-import { setTitles } from "../../reducers/titles";
+import { setTitleGroup, setTitles } from "../../reducers/titles";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import L from "leaflet";
 
@@ -42,7 +42,6 @@ export default function MapPage() {
   const selectedMarker = useSelector(
     (state) => state.selectedMarker.selectedMarker
   );
-  const titles = useSelector((state) => state.titles.titles);
 
   const dispatch = useDispatch();
   dispatch(setSelectedNeighbourhood(true));
@@ -91,8 +90,14 @@ export default function MapPage() {
     onSnapshot(collection(db, "columns"), (snapshot) => {
       dispatch(setTitles(snapshot.docs.map((doc) => doc.data())));
     });
-    console.log(titles);
-  }, [selectedMarker]);
+  }, [selectedMarker, dispatch]);
+
+  useEffect(() => {	
+    if (!selectedMarker) return;
+    onSnapshot(collection(db, "titles"), (snapshot) => {
+      dispatch(setTitleGroup(snapshot.docs.map((doc) => doc.data())));
+    });
+  }, [selectedMarker, dispatch]);
 
   return (
     <MapContainer
