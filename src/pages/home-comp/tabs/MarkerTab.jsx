@@ -2,7 +2,6 @@ import CustomTabPanel from "./CustomTabPanel";
 import { useSelector } from "react-redux";
 import { Table } from "react-bootstrap";
 import { CheckMark, CrossMark } from "../../../simple-comp/boolean";
-import { useEffect } from "react";
 
 export function MarkerTab(props) {
   const { value, index, ...other } = props;

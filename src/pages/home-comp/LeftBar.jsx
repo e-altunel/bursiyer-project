@@ -6,7 +6,6 @@ import {
   setSelectedGroupIndex,
   setSelectedTitles,
 } from "../../reducers/titles";
-import { height } from "@mui/system";
 
 export default function LeftBar() {
   const leftBarOpen = useSelector((state) => state.uiSett.leftBarOpen);
