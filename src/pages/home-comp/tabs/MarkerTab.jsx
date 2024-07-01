@@ -35,8 +35,8 @@ export function MarkerTab(props) {
                   .map((key, index) => {
                     const value = selectedMarker[key];
                     if (value === null || value === undefined) return null;
-                    if (typeof value !== "string" && typeof value !== "number")
-                      return null;
+                    //if (typeof value !== "string" && typeof value !== "number")
+                    //  return null;
                     const header_info = get_info_from_key(key, titles);
                     const showvalue = show_value(value, header_info.type);
                     if (showvalue === null || showvalue === undefined)
@@ -111,7 +111,7 @@ function get_info_from_key(key, titles) {
 
 function show_value(value, type) {
   if (type === "BOOLEAN") {
-    return value ? <CheckMark /> : null;
+    return value ? <CheckMark /> : <CrossMark />;
   }
   if (type === "REAL") {
     return value.toFixed(2);
