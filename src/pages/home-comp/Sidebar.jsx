@@ -42,8 +42,8 @@ export default function Sidebar() {
       <div
         className="navbar-grid container-flex"
         style={{
-          height: `${navbar_size}vh`,
-          padding: `${navbar_padding}vh`,
+          height: navbar_size,
+          padding: navbar_padding,
         }}
       >
         <Navbar />

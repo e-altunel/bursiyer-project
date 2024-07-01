@@ -11,8 +11,8 @@ export const uiSett = createSlice({
     sidebar_base_size: 54,
     sidebar_const_size: 54,
     navbar: {
-      size: 7,
-      padding: 1,
+      size: "7vh",
+      padding: "1vh",
     },
   },
   reducers: {
