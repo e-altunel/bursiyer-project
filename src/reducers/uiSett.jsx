@@ -5,9 +5,11 @@ export const uiSett = createSlice({
   initialState: {
     admin: false,
     darkMode: false,
-    leftBarOpen: false,
-    left_left_bar_size: 3,
-    left_right_bar_size: 11,
+    leftBar: {
+      isOpen: false,
+      leftBarSize: "3vw",
+      rightBarSize: "11vw",
+    },
     sidebar_base_size: 54,
     sidebar_const_size: 54,
     navbar: {

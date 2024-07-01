@@ -5,6 +5,8 @@ export const titles = createSlice({
   initialState: {
     titles: null,
     title_group: null,
+    selectedTitles: [],
+    selectedGroupIndex: [null, null],
   },
   reducers: {
     setTitles: (state, action) => {
@@ -13,7 +15,18 @@ export const titles = createSlice({
     setTitleGroup: (state, action) => {
       state.title_group = action.payload;
     },
+    setSelectedTitles: (state, action) => {
+      state.selectedTitles = action.payload;
+    },
+    setSelectedGroupIndex: (state, action) => {
+      state.selectedGroupIndex = action.payload;
+    },
   },
 });
 
-export const { setTitles, setTitleGroup } = titles.actions;
+export const {
+  setTitles,
+  setTitleGroup,
+  setSelectedTitles,
+  setSelectedGroupIndex,
+} = titles.actions;
