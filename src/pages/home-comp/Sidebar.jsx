@@ -26,7 +26,8 @@ export default function Sidebar() {
   };
   const isAdmin = useSelector((state) => state.uiSett.isAdmin);
   const darkMode = useSelector((state) => state.uiSett.darkMode);
-  const navbar_size = useSelector((state) => state.uiSett.navbar_size);
+  const navbar_size = useSelector((state) => state.uiSett.navbar.size);
+  const navbar_padding = useSelector((state) => state.uiSett.navbar.padding);
 
   return (
     <Box
@@ -42,6 +43,7 @@ export default function Sidebar() {
         className="navbar-grid container-flex"
         style={{
           height: `${navbar_size}vh`,
+          padding: `${navbar_padding}vh`,
         }}
       >
         <Navbar />

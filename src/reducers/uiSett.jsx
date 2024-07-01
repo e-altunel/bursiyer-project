@@ -10,7 +10,10 @@ export const uiSett = createSlice({
     left_right_bar_size: 11,
     sidebar_base_size: 54,
     sidebar_const_size: 54,
-    navbar_size: 7,
+    navbar: {
+      size: 7,
+      padding: 1,
+    },
   },
   reducers: {
     setAdmin: (state, action) => {
