@@ -2,9 +2,9 @@ import { Box } from "@mui/material";
 import { ButtonGroup } from "react-bootstrap";
 import { UserAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { setDarkMode } from "../../reducers/uiSett";
-import { Image } from "react-bootstrap";
+import { useSelector /*useDispatch*/ } from "react-redux";
+//import { setDarkMode } from "../../reducers/uiSett";
+//import { Image } from "react-bootstrap";
 import CButton from "../custom-comp/CButton";
 
 export default function Navbar() {
